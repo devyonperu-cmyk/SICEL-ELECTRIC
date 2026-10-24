@@ -1,0 +1,56 @@
+SICEL ELECTRIC - SITIO WEB
+==========================
+
+Contenido de esta carpeta
+-------------------------
+index.html                     Página principal
+libro-de-reclamaciones.html    Libro de Reclamaciones virtual
+politica-de-privacidad.html    Política de privacidad (Ley 29733 y D.S. 016-2024-JUS)
+terminos-y-condiciones.html    Términos y condiciones del servicio
+politica-de-cookies.html       Política de cookies
+assets/                        Estilos, código, fuentes (Barlow, licencia OFL) e imágenes
+robots.txt, sitemap.xml        Para buscadores (Google)
+
+
+Antes de publicar
+-----------------
+1. Datos pendientes. Todo lo que aparece en la web entre corchetes y resaltado
+   en amarillo, por ejemplo [Razón social] o [RUC], debe completarse antes de
+   publicar. El Libro de Reclamaciones y la Política de privacidad exigen la
+   razón social, el RUC y el domicilio del proveedor.
+
+2. Dominio y hosting. Contrata un dominio (por ejemplo .pe o .com) y un hosting
+   con certificado SSL activo, para que la web abra con https://.
+
+3. Sube los archivos. Copia TODO el contenido de esta carpeta a la carpeta
+   pública del hosting (normalmente public_html), manteniendo la carpeta assets.
+
+
+Después de publicar
+-------------------
+4. Activa el Libro de Reclamaciones. Entra a tu web, registra una hoja de
+   prueba y envíala. Llegará un correo de FormSubmit a
+   soporte.sicelelectric@outlook.com: ábrelo y pulsa el botón de activación.
+   Desde ese momento cada hoja llegará a ese correo y el consumidor recibirá
+   su copia automática. Revisa también la carpeta de correo no deseado.
+
+5. Conserva las hojas. No borres los correos del Libro de Reclamaciones:
+   crea una carpeta para ellos. Responde cada reclamo o queja en un plazo
+   máximo de 15 días hábiles, por el medio que eligió el consumidor.
+
+6. Inscribe tu banco de datos personales en el Registro Nacional de
+   Protección de Datos Personales (Autoridad Nacional de Protección de Datos
+   Personales, en gob.pe). El trámite es gratuito. Coloca el código que te
+   asignen en la Política de privacidad.
+
+7. Buscadores. Cuando tengas el dominio, actualiza sitemap.xml (reemplaza
+   TU-DOMINIO) y registra la web en Google Search Console.
+
+
+Importante
+----------
+- La web no usa cookies de seguimiento. Si más adelante agregas Google
+  Analytics, Meta Pixel u otra herramienta similar, necesitarás un aviso de
+  cookies con consentimiento y actualizar la Política de cookies.
+- Los textos legales son una base sólida, pero conviene que un abogado los
+  revise antes de publicar.
