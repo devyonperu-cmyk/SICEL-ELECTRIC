@@ -35,6 +35,10 @@
   --band-logo-sub: #FFC300;
   --font: 'Barlow', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --radius: 12px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --error: #B42318;
+  --error-bg: #FDECEA;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -173,8 +177,14 @@ img, svg { max-width: 100%; }
   line-height: 1.1;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: transform 160ms var(--ease-out), background-color 150ms ease, border-color 150ms ease, box-shadow 160ms var(--ease-out);
 }
+/* Los botones suben 1px al pasar el mouse y se hunden al presionar */
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary:hover { box-shadow: 0 6px 16px rgba(255, 195, 0, 0.28); }
+}
+.btn:active { transform: scale(0.97); box-shadow: none; }
 .btn-primary { background: var(--accent); color: var(--on-accent); }
 .btn-primary:hover { background: var(--accent-hover); color: var(--on-accent); }
 .btn-outline { background: transparent; color: var(--ink); border-color: var(--ink); }
@@ -211,8 +221,17 @@ img, svg { max-width: 100%; }
 .lg-word { fill: var(--logo-word); }
 .lg-sub { fill: var(--logo-sub); }
 .nav { display: flex; align-items: center; gap: 26px; }
-.nav a { color: var(--fg); text-decoration: none; font-weight: 600; font-size: 0.98rem; }
-.nav a:hover { color: var(--steel); }
+.nav a {
+  color: var(--fg);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.98rem;
+  /* Subrayado que se dibuja de izquierda a derecha */
+  background: linear-gradient(var(--accent), var(--accent)) no-repeat left bottom / 0% 2px;
+  padding-block: 4px;
+  transition: background-size 200ms var(--ease-out), color 150ms ease;
+}
+.nav a:hover { color: var(--ink); background-size: 100% 2px; }
 .menu-btn {
   display: none;
   align-items: center;
@@ -249,7 +268,13 @@ img, svg { max-width: 100%; }
     box-shadow: 0 12px 20px rgba(4, 16, 31, 0.12);
   }
   .nav.open { display: flex; }
-  .nav a { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 1.05rem; }
+  @media (prefers-reduced-motion: no-preference) {
+    .nav.open {
+      transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
+      @starting-style { opacity: 0; transform: translateY(-6px); }
+    }
+  }
+  .nav a { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 1.05rem; background: none; }
   .nav a:last-child { border-bottom: 0; }
 }
 @media (max-width: 380px) { .brand svg { height: 32px; } .hdr .btn-sm { padding: 0 0.8rem; } .menu-btn span { display: none; } }
@@ -299,6 +324,18 @@ img, svg { max-width: 100%; }
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; padding-block: 44px 0; }
 }
+/* Entrada de la portada, una sola vez al cargar: el texto sube en cascada y la foto se asienta */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy > * { animation: rise 560ms var(--ease-out) backwards; }
+  .hero-copy > :nth-child(2) { animation-delay: 70ms; }
+  .hero-copy > :nth-child(3) { animation-delay: 130ms; }
+  .hero-copy > :nth-child(4) { animation-delay: 180ms; }
+  .hero-copy > :nth-child(5) { animation-delay: 220ms; }
+  .hero-photo { animation: settle 900ms var(--ease-out) backwards; }
+  .hero-badge { animation: rise 500ms var(--ease-out) 380ms backwards; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+@keyframes settle { from { opacity: 0; transform: scale(1.04); } }
 
 /* Foto del electricista a sangre hasta el borde derecho, fundida con la banda azul */
 .hero { overflow-x: clip; }
@@ -407,17 +444,41 @@ img, svg { max-width: 100%; }
 }
 .chip.quiet { background: var(--surface); color: var(--steel); }
 .svc p { color: var(--muted); }
-.svc { overflow: hidden; }
-.svc-img, .checklist-img {
+.svc { position: relative; overflow: hidden; transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out); }
+.svc-media, .checklist-img {
   display: block;
   width: calc(100% + 56px);
   max-width: none;
-  height: auto;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
   margin: -28px -28px 6px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
   background: var(--surface);
-}.svc .svc-note { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); font-size: 0.95rem; color: var(--fg); }
+}
+.svc-media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 400ms var(--ease-out); }
+.checklist-img { height: auto; object-fit: cover; }
+.svc .svc-note { padding-top: 12px; border-top: 1px solid var(--line); font-size: 0.95rem; color: var(--fg); }
+/* Toda la tarjeta lleva a WhatsApp: el enlace se estira sobre ella */
+.svc-link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.svc-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.svc-link .icon { transition: transform 200ms var(--ease-out); }
+.svc:has(.svc-link:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+.svc-link:focus-visible { outline: none; }
+@media (hover: hover) and (pointer: fine) {
+  .svc:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(4, 16, 31, 0.12); }
+  .svc:hover .svc-media img { transform: scale(1.03); }
+  .svc:hover .svc-link .icon { transform: translateX(3px); }
+}
+.svc:active { transform: scale(0.99); }
+.section.alt .finish { background: var(--bg); }
 .dash { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .dash li { position: relative; padding-left: 22px; }
 .dash li::before { content: ""; position: absolute; left: 0; top: 0.8em; width: 11px; height: 2px; background: var(--steel); }
@@ -460,16 +521,43 @@ img, svg { max-width: 100%; }
 .faq summary {
   list-style: none;
   cursor: pointer;
-  position: relative;
-  padding: 20px 44px 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 0;
   font-weight: 600;
   font-size: 1.1rem;
   color: var(--ink);
 }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; position: absolute; right: 6px; top: 13px; font-size: 1.6rem; font-weight: 400; color: var(--steel); }
-.faq details[open] summary::after { content: "\2013"; }
-.faq details p { padding-bottom: 20px; color: var(--muted); max-width: 70ch; }
+/* Un "+" junto al texto que gira hasta formar una "x" al abrir */
+.faq summary::before {
+  content: "";
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background:
+    linear-gradient(var(--on-accent), var(--on-accent)) center / 10px 2px no-repeat,
+    linear-gradient(var(--on-accent), var(--on-accent)) center / 2px 10px no-repeat,
+    var(--accent);
+}
+.faq details[open] > summary::before { rotate: 45deg; }
+@media (hover: hover) and (pointer: fine) { .faq summary:hover { color: var(--steel); } }
+.faq details p { padding: 0 0 20px 36px; color: var(--muted); max-width: 70ch; }
+.faq details::details-content {
+  interpolate-size: allow-keywords;
+  overflow: clip;
+  contain: layout;
+}
+.faq details:not([open])::details-content { block-size: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .faq summary::before { transition: rotate 200ms var(--ease-out); }
+  .faq details::details-content {
+    transition: block-size 260ms var(--ease-in-out), content-visibility 260ms;
+    transition-behavior: allow-discrete;
+  }
+}
 
 /* Contacto */
 .contact { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 56px; align-items: start; }
@@ -494,6 +582,15 @@ input[type="text"], input[type="email"], input[type="tel"], input[type="number"]
 }
 textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
 input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+/* Error por campo, solo después de que la persona interactúa o intenta enviar */
+.field-error { display: none; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 600; color: var(--error); }
+.field-error .icon { width: 16px; height: 16px; }
+:is(input, select, textarea):is(:user-invalid, .user-invalid-fallback) { border-color: var(--error); background-color: var(--error-bg); }
+.field:has(:is(:user-invalid, .user-invalid-fallback)) .field-error { display: flex; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --error: #FF9B8F; --error-bg: #3A1512; }
+}
+:root[data-theme="dark"] { --error: #FF9B8F; --error-bg: #3A1512; }
 .check { display: flex; gap: 12px; align-items: flex-start; font-size: 0.96rem; }
 .check input { width: 20px; height: 20px; margin: 3px 0 0; flex: none; accent-color: var(--steel); }
 .req { color: var(--steel); }
@@ -572,7 +669,9 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px
 .lr-btn span { display: flex; flex-direction: column; line-height: 1.25; }
 .lr-btn strong { font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; }
 .lr-btn small { color: var(--band-muted); }
+.lr-btn { transition: border-color 150ms ease, transform 160ms var(--ease-out); }
 .site-footer .lr-btn:hover { border-color: var(--accent); color: var(--band-fg); }
+.lr-btn:active { transform: scale(0.97); }
 .foot-bottom {
   border-top: 1px solid var(--band-line);
   padding-block: 20px calc(20px + env(safe-area-inset-bottom, 0px));
@@ -601,7 +700,13 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px
   text-decoration: none;
   box-shadow: var(--shadow);
 }
+.fab { transition: transform 160ms var(--ease-out), background-color 150ms ease; }
 .fab:hover { background: var(--accent-hover); color: var(--on-accent); }
+@media (hover: hover) and (pointer: fine) { .fab:hover { transform: translateY(-2px); } }
+.fab:active { transform: scale(0.96); }
+@media (prefers-reduced-motion: no-preference) {
+  .fab { animation: rise 500ms var(--ease-out) 900ms backwards; }
+}
 @media (max-width: 480px) { .fab .fab-label { display: none; } .fab { padding: 0 16px; } }
 
 /* ---------- Páginas legales y Libro ---------- */

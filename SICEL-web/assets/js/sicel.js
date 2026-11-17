@@ -54,6 +54,30 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && nav.classList.contains('open')) { setOpen(false); btn.focus(); }
   });
+  // Un toque fuera del menú lo cierra
+  document.addEventListener('click', function (e) {
+    if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) setOpen(false);
+  });
+})();
+
+(function () {
+  // Sincroniza aria-invalid con :user-invalid y enlaza el mensaje de error del campo solo mientras se ve
+  var fields = document.querySelectorAll('[data-error]');
+  if (!fields.length) return;
+  function sync(el) {
+    var invalid = false;
+    try { invalid = el.matches(':user-invalid'); } catch (e) { return; }
+    el.setAttribute('aria-invalid', String(invalid));
+    if (invalid) el.setAttribute('aria-describedby', el.dataset.error);
+    else el.removeAttribute('aria-describedby');
+  }
+  fields.forEach(function (el) {
+    sync(el);
+    ['blur', 'input', 'change', 'invalid'].forEach(function (type) {
+      // El estado :user-invalid se actualiza después del evento, por eso se espera un ciclo
+      el.addEventListener(type, function () { setTimeout(function () { sync(el); }, 0); });
+    });
+  });
 })();
 
 (function () {

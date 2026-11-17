@@ -104,7 +104,7 @@
       </div>
       <div class="services">
         <article class="svc lead-svc">
-          <img class="svc-img" src="assets/img/diagnostico-electrico.webp" alt="Técnico midiendo los cables de un tablero con una pinza amperimétrica" width="900" height="675" loading="lazy" decoding="async">
+          <div class="svc-media"><img src="assets/img/diagnostico-electrico.webp" alt="Técnico midiendo los cables de un tablero con una pinza amperimétrica" width="900" height="675" loading="lazy" decoding="async"></div>
           <span class="chip">Empieza aquí</span>
           <h3>Diagnóstico eléctrico</h3>
           <ul class="dash">
@@ -113,24 +113,27 @@
             <li>Informe con fotos y cotización por escrito</li>
           </ul>
           <p class="svc-note">La visita se descuenta si contratas la reparación.</p>
+          <a class="svc-link" href="https://wa.me/51998234250?text=Hola%20SICEL%20ELECTRIC%2C%20quiero%20agendar%20una%20visita%20de%20diagn%C3%B3stico." target="_blank" rel="noopener">Pedir un diagnóstico<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
         </article>
         <article class="svc">
-          <img class="svc-img" src="assets/img/instalaciones-reparaciones.webp" alt="Técnico instalando un tomacorriente nuevo en la pared de una sala" width="900" height="675" loading="lazy" decoding="async">
+          <div class="svc-media"><img src="assets/img/instalaciones-reparaciones.webp" alt="Técnico instalando un tomacorriente nuevo en la pared de una sala" width="900" height="675" loading="lazy" decoding="async"></div>
           <h3>Instalaciones y reparaciones</h3>
           <ul class="dash">
             <li>Tomacorrientes, interruptores y luces LED</li>
             <li>Circuitos para terma, cocina de inducción y aire acondicionado</li>
             <li>Recableado parcial o total</li>
           </ul>
+          <a class="svc-link" href="https://wa.me/51998234250?text=Hola%20SICEL%20ELECTRIC%2C%20necesito%20una%20instalaci%C3%B3n%20o%20reparaci%C3%B3n." target="_blank" rel="noopener">Cotizar una instalación<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
         </article>
         <article class="svc">
-          <img class="svc-img" src="assets/img/tableros-electricos.webp" alt="Tablero eléctrico doméstico ordenado, con interruptores en riel y cables peinados" width="900" height="675" loading="lazy" decoding="async">
+          <div class="svc-media"><img src="assets/img/tableros-electricos.webp" alt="Tablero eléctrico doméstico ordenado, con interruptores en riel y cables peinados" width="900" height="675" loading="lazy" decoding="async"></div>
           <h3>Tableros eléctricos</h3>
           <ul class="dash">
             <li>Tablero nuevo o modernización del existente</li>
             <li>Cambio de termomagnéticos y diferenciales</li>
             <li>Cada circuito rotulado</li>
           </ul>
+          <a class="svc-link" href="https://wa.me/51998234250?text=Hola%20SICEL%20ELECTRIC%2C%20quiero%20cotizar%20un%20tablero%20el%C3%A9ctrico." target="_blank" rel="noopener">Cotizar un tablero<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
         </article>
       </div>
       <div class="finish">
@@ -237,19 +240,22 @@
           <div class="form-grid">
             <div class="field">
               <label for="c-nombre">Nombre <span class="req" aria-hidden="true">*</span></label>
-              <input type="text" id="c-nombre" name="nombre" autocomplete="name" required>
+              <input type="text" id="c-nombre" name="nombre" autocomplete="name" data-error="c-nombre-error" required>
+              <p class="field-error" id="c-nombre-error"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5"/><path d="M12 16.5h.01"/></svg>Escribe tu nombre.</p>
             </div>
             <div class="field">
               <label for="c-telefono">Celular <span class="req" aria-hidden="true">*</span></label>
-              <input type="tel" id="c-telefono" name="telefono" autocomplete="tel" inputmode="tel" required>
+              <input type="tel" id="c-telefono" name="telefono" autocomplete="tel" inputmode="tel" data-error="c-telefono-error" required>
+              <p class="field-error" id="c-telefono-error"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5"/><path d="M12 16.5h.01"/></svg>Escribe tu celular.</p>
             </div>
             <div class="field">
               <label for="c-distrito">Distrito <span class="req" aria-hidden="true">*</span></label>
-              <input type="text" id="c-distrito" name="distrito" autocomplete="address-level2" required>
+              <input type="text" id="c-distrito" name="distrito" autocomplete="address-level2" data-error="c-distrito-error" required>
+              <p class="field-error" id="c-distrito-error"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5"/><path d="M12 16.5h.01"/></svg>Escribe tu distrito.</p>
             </div>
             <div class="field">
               <label for="c-servicio">¿Qué necesitas? <span class="req" aria-hidden="true">*</span></label>
-              <select id="c-servicio" name="servicio" required>
+              <select id="c-servicio" name="servicio" data-error="c-servicio-error" required>
                 <option value="">Elige una opción</option>
                 <option>Diagnóstico de una falla</option>
                 <option>Inspección integral de la vivienda</option>
@@ -257,6 +263,7 @@
                 <option>Tablero eléctrico</option>
                 <option>Plan de mantenimiento preventivo</option>
               </select>
+              <p class="field-error" id="c-servicio-error"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5"/><path d="M12 16.5h.01"/></svg>Elige qué necesitas.</p>
             </div>
             <div class="field full">
               <label for="c-mensaje">Cuéntanos un poco más</label>
